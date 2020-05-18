@@ -1,0 +1,129 @@
+Datasets              = 1, 2
+Method                = neldermead
+Statistic             = chi2datavar
+Initial fit statistic = 1.27035e+11
+Final fit statistic   = 220.331 at function evaluation 4433
+Data points           = 109
+Degrees of freedom    = 99
+Probability [Q-value] = 3.19008e-11
+Reduced statistic     = 2.22557
+Change in statistic   = 1.27035e+11
+   abs_gal.nH     3.22008e-09 
+   cabs.nH        219.386     
+   pexrav.PhoIndex   1.69235     
+   pexrav.foldE   127.14      
+   pexrav.rel_refl   -0.17806    
+   pexrav.norm    0.0593192   
+   bb.kT          0.610942    
+   bb.ampl        0.00313756  
+   line.norm      1.72263e-05 
+   bat_const.factor   1.00064     
+WARNING: parameter value abs_gal.nH is at its minimum boundary 0.0
+AFTER FIT!
+Model: 1
+apply_rmf(apply_arf((18201.703975859 * ((((xsphabs.abs_gal * xsconstant.chandra_const) * xscabs.cabs) * xszphabs.abs_intr) * ((x
+spexrav.pexrav + bbody.bb) + xszgauss.line)))))
+   Param        Type          Value          Min          Max      Units
+   -----        ----          -----          ---          ---      -----
+   abs_gal.nH   thawed  3.22008e-09            0       100000 10^22 atoms / cm^2
+   chandra_const.factor frozen            1            0        1e+10           
+   cabs.nH      thawed      219.386            0       100000 10^22 atoms / cm^2
+   abs_intr.nH  frozen         0.02            0       100000 10^22 atoms / cm^2
+   abs_intr.redshift frozen       0.0728       -0.999           10           
+   pexrav.PhoIndex thawed      1.69235            0          1.7           
+   pexrav.foldE thawed       127.14           60          500        keV
+   pexrav.rel_refl thawed     -0.17806           -1            0           
+   pexrav.redshift frozen       0.0728       -0.999           10           
+   pexrav.abund frozen            1            0        1e+06           
+   pexrav.Fe_abund frozen            1            0        1e+06           
+   pexrav.cosIncl frozen     0.866025         0.05         0.95           
+   pexrav.norm  thawed    0.0593192  4.46462e-06      4.46462           
+   bb.space     frozen            0            0            1 0 - energy | 1 - wave
+   bb.kT        thawed     0.610942          0.1         1000        keV
+   bb.ampl      thawed   0.00313756        1e-20        1e+20           
+   line.LineE   frozen          6.4            0        1e+06        keV
+   line.Sigma   frozen         0.01            0           10        keV
+   line.redshift frozen       0.0728       -0.999           10           
+   line.norm    thawed  1.72263e-05            0        1e+24           
+
+Model: 2
+apply_rmf((185490948.0 * ((((xsphabs.abs_gal * xsconstant.bat_const) * xscabs.cabs) * xszphabs.abs_intr) * ((xspexrav.pexrav + b
+body.bb) + xszgauss.line))))
+   Param        Type          Value          Min          Max      Units
+   -----        ----          -----          ---          ---      -----
+   abs_gal.nH   thawed  3.22008e-09            0       100000 10^22 atoms / cm^2
+   bat_const.factor thawed      1.00064            1        10000           
+   cabs.nH      thawed      219.386            0       100000 10^22 atoms / cm^2
+   abs_intr.nH  frozen         0.02            0       100000 10^22 atoms / cm^2
+   abs_intr.redshift frozen       0.0728       -0.999           10           
+   pexrav.PhoIndex thawed      1.69235            0          1.7           
+   pexrav.foldE thawed       127.14           60          500        keV
+   pexrav.rel_refl thawed     -0.17806           -1            0           
+   pexrav.redshift frozen       0.0728       -0.999           10           
+   pexrav.abund frozen            1            0        1e+06           
+   pexrav.Fe_abund frozen            1            0        1e+06           
+   pexrav.cosIncl frozen     0.866025         0.05         0.95           
+   pexrav.norm  thawed    0.0593192  4.46462e-06      4.46462           
+   bb.space     frozen            0            0            1 0 - energy | 1 - wave
+   bb.kT        thawed     0.610942          0.1         1000        keV
+   bb.ampl      thawed   0.00313756        1e-20        1e+20           
+   line.LineE   frozen          6.4            0        1e+06        keV
+   line.Sigma   frozen         0.01            0           10        keV
+   line.redshift frozen       0.0728       -0.999           10           
+   line.norm    thawed  1.72263e-05            0        1e+24           
+
+
+
+bat_const.factor lower bound:	-----
+8443897299
+abs_gal.nH lower bound:	-----
+line.norm lower bound:	-----
+pexrav.rel_refl lower bound:	-----
+pexrav.PhoIndex -: WARNING: The confidence level lies within (1.498793e+00, 1.501460e+00)
+pexrav.PhoIndex lower bound:	-0.192221
+pexrav.PhoIndex upper bound:	-----
+bb.ampl -: WARNING: The confidence level lies within (1.167999e-03, 1.698586e-03)
+bb.ampl lower bound:	-0.00170427
+pexrav.foldE lower bound:	-----
+pexrav.rel_refl upper bound:	-----
+bat_const.factor +: WARNING: The confidence level lies within (1.476519e+00, 1.481373e+00)
+bat_const.factor upper bound:	0.478303
+pexrav.foldE upper bound:	7.59536
+abs_gal.nH upper bound:	-----
+pexrav.norm -: WARNING: The confidence level lies within (7.192392e-03, 7.182672e-03)
+pexrav.norm lower bound:	-0.0521316
+bb.kT -: WARNING: The confidence level lies within (4.860081e-01, 4.860011e-01)
+bb.kT lower bound:	-0.124938
+cabs.nH -: WARNING: The confidence level lies within (1.125650e+02, 1.125675e+02)
+cabs.nH lower bound:	-106.82
+bb.ampl +: WARNING: The confidence level lies within (5.336555e-03, 5.335023e-03)
+bb.ampl upper bound:	0.00219823
+line.norm +: WARNING: The confidence level lies within (8.266389e-05, 8.265243e-05)
+line.norm upper bound:	6.54319e-05
+pexrav.norm +: WARNING: The confidence level lies within (2.603962e+00, 2.603952e+00)
+pexrav.norm upper bound:	2.54464
+cabs.nH +: WARNING: The confidence level lies within (2.771778e+02, 2.771803e+02)
+cabs.nH upper bound:	57.7929
+bb.kT +: WARNING: The confidence level lies within (6.927477e-01, 6.927415e-01)
+bb.kT upper bound:	0.0818023
+Datasets              = 1, 2
+Confidence Method     = confidence
+Iterative Fit Method  = None
+Fitting Method        = neldermead
+Statistic             = chi2datavar
+confidence 1-sigma (68.2689%) bounds:
+   Param            Best-Fit  Lower Bound  Upper Bound
+   -----            --------  -----------  -----------
+   abs_gal.nH    3.22008e-09        -----        -----
+   cabs.nH           219.386      -106.82      57.7929
+   pexrav.PhoIndex      1.69235    -0.192221        -----
+   pexrav.foldE       127.14        -----      7.59536
+   pexrav.rel_refl     -0.17806        -----        -----
+   pexrav.norm     0.0593192   -0.0521316      2.54464
+   bb.kT            0.610942    -0.124938    0.0818023
+   bb.ampl        0.00313756  -0.00170427   0.00219823
+   line.norm     1.72263e-05        -----  6.54319e-05
+   bat_const.factor      1.00064        -----     0.478303
+
+
+
