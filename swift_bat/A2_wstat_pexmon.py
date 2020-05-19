@@ -20,24 +20,25 @@ load_rmf(2,"swiftbat_survey_full.rsp")
 
 set_method("simplex")
 
-#
+#Using Pexrav model 
+use_pexrav=1
+
+#Using Pexrav model with a gaussian line added at 6.4keV
+use_pexrav_with_line=0
+
+#Using Pexmon model with initial parameters obtained from fitting the Pexrav model
 use_pexmon=0
 
-
-#
-use_pexmon_with_bb_constrained_values=0
-
-#
-use_pexrav=0
-
-#
-use_pexrav_no_line=1
-
-#
+#Using Pexmon model with no BB component and with initial parameters obtained from fitting the Pexrav model 
 use_pexmon_no_bb_model=0
 
-#
+#Using Pexmon model with initial parameters obtained from fitting the Pexrav model with constraints on the BB temperature
+use_pexmon_with_bb_constrained_values=0
+
+#UUsing Pexmon model with no BB with initial parameters obtained from fitting the Pexrav model with constraints on the BB temperature
 use_pexmon_with_no_bb_using_bb_constrained_values=0
+
+
 
 if((use_pexmon) or (use_pexmon_with_bb_constrained_values)):
 	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon + bbody.bb))
@@ -47,14 +48,14 @@ if((use_pexmon_no_bb_model) or (use_pexmon_with_no_bb_using_bb_constrained_value
 	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon))
 	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon))
 
-if(use_pexrav):
+if(use_pexrav_with_line):
 	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb + xszgauss.line))
 	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb + xszgauss.line))
 	print ("Equi Width")
 	print(eqwidth(abs_gal  * bat_const * cabs * abs_intr * (pexrav + bb),abs_gal  * bat_const * cabs * abs_intr * (pexrav + bb + line),lo=6.2,hi=6.6,id=1))
 
 
-if(use_pexrav_no_line):
+if(use_pexrav):
 	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb))
 	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb))
 
@@ -106,12 +107,12 @@ if(use_pexmon_with_no_bb_using_bb_constrained_values):
 	set_par(pexmon.norm, val = 0.00021, min = 0, max = 0.1, frozen=False)
 
 
-if(use_pexrav) or (use_pexrav_no_line):
+if(use_pexrav_with_line) or (use_pexrav):
 	pexrav.redshift = 0.0728
 	freeze(pexrav.redshift)
 	pexrav.cosIncl = 0.8660254 # cos 30 deg
 
-if(use_pexrav):
+if(use_pexrav_with_line):
 	line.LineE = 6.4
 	freeze(line.LineE)
 	line.sigma = 0.1
@@ -126,7 +127,7 @@ if(use_pexrav):
 	set_par(pexrav.norm, val = 0.00021, min = 0, max = 0.1, frozen=True)
 	set_par(bb.kT, val = 0.1, min = 0, max = 2, frozen=False)
 
-if(use_pexrav_no_line):
+if(use_pexrav):
 	set_par(pexrav.PhoIndex, val = 1.63, min = 0, max = 3, frozen=False)
 	set_par(pexrav.foldE, val = 60, min = 60, max = 500, frozen=False)
 	set_par(pexrav.rel_refl, val = 1, min = 0, max = 20, frozen=False)
@@ -142,7 +143,7 @@ print ("AFTER FREEZE!")
 
 if(use_pexmon) or (use_pexmon_with_bb_constrained_values) or (use_pexmon_no_bb_model) or (use_pexmon_with_no_bb_using_bb_constrained_values):
 	guess(pexmon)
-if(use_pexrav) or (use_pexrav_no_line):
+if(use_pexrav_with_line) or (use_pexrav):
 	guess(pexrav)
 
 print ("AFTER GUESS!")
