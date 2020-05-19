@@ -21,13 +21,13 @@ load_rmf(2,"swiftbat_survey_full.rsp")
 set_method("simplex")
 
 #Using Pexrav model 
-use_pexrav=1
+use_pexrav=0
 
 #Using Pexrav model with a gaussian line added at 6.4keV
 use_pexrav_with_line=0
 
 #Using Pexmon model with initial parameters obtained from fitting the Pexrav model
-use_pexmon=0
+use_pexmon=1
 
 #Using Pexmon model with no BB component and with initial parameters obtained from fitting the Pexrav model 
 use_pexmon_no_bb_model=0
@@ -121,11 +121,11 @@ if(use_pexrav_with_line):
 	freeze(line.redshift)
 	set_par(line.norm, val = 1e-11, min = 0, max = 1e-2, frozen=False)
 	
-	set_par(pexrav.PhoIndex, val = 1.4085, min = 0, max = 3, frozen=True)
-	set_par(pexrav.foldE, val = 150.269, min = 60, max = 500, frozen=True)
-	set_par(pexrav.rel_refl, val = 0.308955, min = 0, max = 20, frozen=True)
-	set_par(pexrav.norm, val = 0.00021, min = 0, max = 0.1, frozen=True)
-	set_par(bb.kT, val = 0.1, min = 0, max = 2, frozen=False)
+	set_par(pexrav.PhoIndex, val = 1.4085, min = 0, max = 3, frozen=False)
+	set_par(pexrav.foldE, val = 150.269, min = 60, max = 500, frozen=False)
+	set_par(pexrav.rel_refl, val = 0.308955, min = 0, max = 20, frozen=False)
+	set_par(pexrav.norm, val = 0.00021, min = 0, max = 0.1, frozen=False)
+	#set_par(bb.kT, val = 0.1, min = 0, max = 2, frozen=False)
 
 if(use_pexrav):
 	set_par(pexrav.PhoIndex, val = 1.63, min = 0, max = 3, frozen=False)
