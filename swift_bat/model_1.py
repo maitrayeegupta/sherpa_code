@@ -21,13 +21,13 @@ load_rmf(2,"swiftbat_survey_full.rsp")
 set_method("simplex")
 
 #Using Pexrav model 
-use_pexrav=0
+use_pexrav=1
 
 #Using Pexrav model with a gaussian line added at 6.4keV
 use_pexrav_with_line=0
 
 #Using Pexmon model with initial parameters obtained from fitting the Pexrav model
-use_pexmon=1
+use_pexmon=0
 
 #Using Pexmon model with no BB component and with initial parameters obtained from fitting the Pexrav model 
 use_pexmon_no_bb_model=0
