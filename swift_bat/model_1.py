@@ -23,12 +23,12 @@ set_method("moncar")
 #Using Pexrav model 
 use_pexrav=0
 
-use_pexmon_no_cabs=0
+use_pexmon_no_cabs=1
 
 #Using Pexrav model with a gaussian line added at 6.4keV
 use_pexrav_with_line=0
 
-use_pexrav_no_cabs=1
+use_pexrav_no_cabs=0
 
 #Using Pexmon model with initial parameters obtained from fitting the Pexrav model
 use_pexmon=0
@@ -105,9 +105,9 @@ if(use_pexmon):
 	set_par(pexmon.norm, val = 0.00021, min = 0, max = 0.1, frozen=False)
 
 if(use_pexmon_no_cabs):
-	set_par(pexmon.PhoIndex, val =  1.40855, min = 0, max = 3, frozen=False)
+	set_par(pexmon.PhoIndex, val =  1.4, min = 0, max = 3, frozen=False)
 	set_par(pexmon.foldE, val = 77, min = 0, max = 200, frozen=False)
-	set_par(pexmon.rel_refl, val = 0.2, min = 0.2, max = 10, frozen=False)
+	set_par(pexmon.rel_refl, val = 10, min = 0.2, max = 10, frozen=False)
 	set_par(pexmon.norm, val = 0.0002, min = 0, max = 0.1, frozen=False)
 	set_par(bb.kT, val = 0.01, min = 0, max = 2, frozen=False)
 	
