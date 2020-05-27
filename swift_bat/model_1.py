@@ -18,13 +18,17 @@ load_rmf(2,"swiftbat_survey_full.rsp")
 #set_ylog()
 
 
-set_method("simplex")
+set_method("moncar")
 
 #Using Pexrav model 
-use_pexrav=1
+use_pexrav=0
+
+use_pexmon_no_cabs=0
 
 #Using Pexrav model with a gaussian line added at 6.4keV
 use_pexrav_with_line=0
+
+use_pexrav_no_cabs=1
 
 #Using Pexmon model with initial parameters obtained from fitting the Pexrav model
 use_pexmon=0
@@ -39,14 +43,17 @@ use_pexmon_with_bb_constrained_values=0
 use_pexmon_with_no_bb_using_bb_constrained_values=0
 
 
+if(use_pexmon_no_cabs) :
+	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * ((xszphabs.abs_intr * xspexmon.pexmon) + bbody.bb))
+	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * ((xszphabs.abs_intr * xspexmon.pexmon) + bbody.bb))
 
 if((use_pexmon) or (use_pexmon_with_bb_constrained_values)):
 	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon + bbody.bb))
 	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon + bbody.bb))
 
 if((use_pexmon_no_bb_model) or (use_pexmon_with_no_bb_using_bb_constrained_values)):
-	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon))
-	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon))
+	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xszphabs.abs_intr * (xspexmon.pexmon))
+	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xszphabs.abs_intr * (xspexmon.pexmon))
 
 if(use_pexrav_with_line):
 	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb + xszgauss.line))
@@ -59,23 +66,33 @@ if(use_pexrav):
 	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb))
 	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb))
 
+if(use_pexrav_no_cabs):
+	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * ((xszphabs.abs_intr * xspexrav.pexrav) + bbody.bb) )
+	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const  * ((xszphabs.abs_intr * xspexrav.pexrav) + bbody.bb) )
+
+
 print ("ORIGINAL MODEL!")
 #show_model()
 
 #set parameters
 abs_gal.nH = 0.02
 freeze(abs_gal.nH)
-cabs.nH = 0.02
-#freeze(cabs.nH)
 
-#abs_intr.nH = 0.02
-link(cabs.nH , abs_intr.nH)
+if((use_pexrav_no_cabs==0) and (use_pexmon_no_cabs==0)):
+	print("HERE")
+	cabs.nH = 0.02
+	#freeze(cabs.nH)
+	#abs_intr.nH = 0.02
+	link(cabs.nH , abs_intr.nH)
 
-#freeze(abs_intr.nH)
+if((use_pexrav_no_cabs==1) or (use_pexmon_no_cabs==1)):
+	abs_intr.nH = 0.02
+
+
 abs_intr.redshift = 0.0728
 freeze(abs_intr.redshift)
 
-if(use_pexmon) or (use_pexmon_with_bb_constrained_values) or (use_pexmon_no_bb_model) or (use_pexmon_with_no_bb_using_bb_constrained_values):
+if(use_pexmon) or (use_pexmon_with_bb_constrained_values) or (use_pexmon_no_bb_model) or (use_pexmon_no_cabs) or (use_pexmon_with_no_bb_using_bb_constrained_values):
         pexmon.redshift = 0.0728
         freeze(pexmon.redshift)
         pexmon.Incl = 30 # cos 30 deg
@@ -87,6 +104,14 @@ if(use_pexmon):
 	set_par(pexmon.rel_refl, val = 0.308955, min = 0, max = 20, frozen=False)
 	set_par(pexmon.norm, val = 0.00021, min = 0, max = 0.1, frozen=False)
 
+if(use_pexmon_no_cabs):
+	set_par(pexmon.PhoIndex, val =  1.40855, min = 0, max = 3, frozen=False)
+	set_par(pexmon.foldE, val = 77, min = 0, max = 200, frozen=False)
+	set_par(pexmon.rel_refl, val = 0.2, min = 0.2, max = 10, frozen=False)
+	set_par(pexmon.norm, val = 0.0002, min = 0, max = 0.1, frozen=False)
+	set_par(bb.kT, val = 0.01, min = 0, max = 2, frozen=False)
+	
+
 if(use_pexmon_with_bb_constrained_values):
 	set_par(pexmon.PhoIndex, val =  1.34105, min = 0, max = 3, frozen=False)
 	set_par(pexmon.foldE, val = 60.0002, min = 60, max = 500, frozen=False)
@@ -95,9 +120,9 @@ if(use_pexmon_with_bb_constrained_values):
 	set_par(bb.kT, val = 0.102192, min = 0, max = 2, frozen=False)
 
 if(use_pexmon_no_bb_model):
-	set_par(pexmon.PhoIndex, val =  1.40855, min = 0, max = 3, frozen=False)
-	set_par(pexmon.foldE, val = 150.269 , min = 60, max = 500, frozen=False)
-	set_par(pexmon.rel_refl, val = 0.308955, min = 0, max = 20, frozen=False)
+	set_par(pexmon.PhoIndex, val =  1.32165, min = 0, max = 3, frozen=False)
+	set_par(pexmon.foldE, val = 67.6054  , min = 0, max = 200, frozen=False)
+	set_par(pexmon.rel_refl, val = 0, min = 0, max = 20, frozen=False)
 	set_par(pexmon.norm, val = 0.00021, min = 0, max = 0.1, frozen=False)
 
 if(use_pexmon_with_no_bb_using_bb_constrained_values):
@@ -107,10 +132,11 @@ if(use_pexmon_with_no_bb_using_bb_constrained_values):
 	set_par(pexmon.norm, val = 0.00021, min = 0, max = 0.1, frozen=False)
 
 
-if(use_pexrav_with_line) or (use_pexrav):
+if(use_pexrav_with_line) or (use_pexrav) or (use_pexrav_no_cabs):
 	pexrav.redshift = 0.0728
 	freeze(pexrav.redshift)
 	pexrav.cosIncl = 0.8660254 # cos 30 deg
+	freeze(pexrav.cosIncl)
 
 if(use_pexrav_with_line):
 	line.LineE = 6.4
@@ -127,23 +153,23 @@ if(use_pexrav_with_line):
 	set_par(pexrav.norm, val = 0.00021, min = 0, max = 0.1, frozen=False)
 	#set_par(bb.kT, val = 0.1, min = 0, max = 2, frozen=False)
 
-if(use_pexrav):
-	set_par(pexrav.PhoIndex, val = 1.63, min = 0, max = 3, frozen=False)
-	set_par(pexrav.foldE, val = 60, min = 60, max = 500, frozen=False)
-	set_par(pexrav.rel_refl, val = 1, min = 0, max = 20, frozen=False)
-	set_par(pexrav.norm, val = 0.001, min = 0, max = 0.1, frozen=False)
-	#set_par(bb.kT, val = 0.1, min = 0, max = 2, frozen=False)
-
+if((use_pexrav) or (use_pexrav_no_cabs)):
+	set_par(pexrav.PhoIndex, val = 1.4, min = 0, max = 3, frozen=False)
+	set_par(pexrav.foldE, val = 77, min = 0, max = 200, frozen=False)
+	set_par(pexrav.rel_refl, val = 10, min = 0.2, max = 10, frozen=False)
+	set_par(pexrav.norm, val = 0.0002, min = 0, max = 0.1, frozen=False)
+	set_par(bb.kT, val = 0.01, min = 0, max = 2, frozen=False)
+	
 set_par(chandra_const.factor, val = 1,frozen=True)
-set_par(bat_const.factor, val = 1.1, min = 1, max = 10000, frozen=False)
+set_par(bat_const.factor, val = 1.1, min = 1, max = 2, frozen=False)
 
 
 print ("AFTER FREEZE!")
 #show_model()
 
-if(use_pexmon) or (use_pexmon_with_bb_constrained_values) or (use_pexmon_no_bb_model) or (use_pexmon_with_no_bb_using_bb_constrained_values):
+if(use_pexmon) or (use_pexmon_with_bb_constrained_values) or (use_pexmon_no_bb_model) or (use_pexmon_no_cabs) or (use_pexmon_with_no_bb_using_bb_constrained_values):
 	guess(pexmon)
-if(use_pexrav_with_line) or (use_pexrav):
+if(use_pexrav_with_line) or (use_pexrav) or (use_pexrav_no_cabs):
 	guess(pexrav)
 
 print ("AFTER GUESS!")
