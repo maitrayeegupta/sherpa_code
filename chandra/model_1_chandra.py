@@ -21,14 +21,14 @@ load_rmf(2,"swiftbat_survey_full.rsp")
 set_method("simplex")
 
 #Using Pexrav model 
-use_pexrav=0
+use_pexrav=1
 
 use_pexmon_no_cabs=0
 
 #Using Pexrav model with a gaussian line added at 6.4keV
 use_pexrav_with_line=0
 
-use_pexrav_no_cabs=1
+use_pexrav_no_cabs=0
 
 #Using Pexmon model with initial parameters obtained from fitting the Pexrav model
 use_pexmon=0
@@ -44,31 +44,31 @@ use_pexmon_with_no_bb_using_bb_constrained_values=0
 
 
 if(use_pexmon_no_cabs) :
-	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * ((xszphabs.abs_intr * xspexmon.pexmon) + bbody.bb))
-	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * ((xszphabs.abs_intr * xspexmon.pexmon) + bbody.bb))
+	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * ((xszphabs.abs_intr * xspexmon.pexmon) + xsbbody.bb))
+	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * ((xszphabs.abs_intr * xspexmon.pexmon) + xsbbody.bb))
 
 if((use_pexmon) or (use_pexmon_with_bb_constrained_values)):
-	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon + bbody.bb))
-	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon + bbody.bb))
+	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon + xsbbody.bb))
+	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexmon.pexmon + xsbbody.bb))
 
 if((use_pexmon_no_bb_model) or (use_pexmon_with_no_bb_using_bb_constrained_values)):
 	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xszphabs.abs_intr * (xspexmon.pexmon))
 	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xszphabs.abs_intr * (xspexmon.pexmon))
 
 if(use_pexrav_with_line):
-	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb + xszgauss.line))
-	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb + xszgauss.line))
+	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + xsbbody.bb + xszgauss.line))
+	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + xsbbody.bb + xszgauss.line))
 	print ("Equi Width")
 	print(eqwidth(abs_gal  * bat_const * cabs * abs_intr * (pexrav + bb),abs_gal  * bat_const * cabs * abs_intr * (pexrav + bb + line),lo=6.2,hi=6.6,id=1))
 
 
 if(use_pexrav):
-	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb))
-	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + bbody.bb))
+	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + xsbbody.bb))
+	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const * xscabs.cabs * xszphabs.abs_intr * (xspexrav.pexrav + xsbbody.bb))
 
 if(use_pexrav_no_cabs):
-	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * ((xszphabs.abs_intr * xspexrav.pexrav) + bbody.bb) )
-	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const  * ((xszphabs.abs_intr * xspexrav.pexrav) + bbody.bb) )
+	set_source(1,xsphabs.abs_gal  *xsconstant.chandra_const * ((xszphabs.abs_intr * xspexrav.pexrav) + xsbbody.bb) )
+	set_source(2,xsphabs.abs_gal  *xsconstant.bat_const  * ((xszphabs.abs_intr * xspexrav.pexrav) + xsbbody.bb) )
 
 
 print ("ORIGINAL MODEL!")
@@ -164,6 +164,18 @@ set_par(chandra_const.factor, val = 1,frozen=True)
 set_par(bat_const.factor, val = 1.1, min = 1, max = 2, frozen=False)
 
 
+set_pileup_model(1,jdpileup.jdp)
+
+set_par(jdp.alpha, val = 0.5, min = 0, max = 1, frozen=False)
+set_par(jdp.g0, val = 1, frozen=True)
+set_par(jdp.f, val = 0.95, frozen=True)
+set_par(jdp.n, val = 1, frozen=True)
+set_par(jdp.ftime, val = 0.4, frozen=True)
+set_par(jdp.fracexp, val = 1, frozen=True)
+set_par(jdp.nterms, val = 30, frozen=True)
+	  
+
+
 print ("AFTER FREEZE!")
 #show_model()
 
@@ -183,7 +195,7 @@ fit(1,2)
 
 print ("AFTER FIT!")
 show_model()
-conf()
+#conf()
 #print("CALC CHI SQUARE")
 #calc_chisqr(1,2)
 #show_stat()

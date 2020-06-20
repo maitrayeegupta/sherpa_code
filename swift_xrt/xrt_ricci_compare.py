@@ -1,6 +1,6 @@
 ##load data
-load_pha(1,"interval0pc.pi")
-group_counts(1,20) 
+load_pha(1,"interval0pc_binned.pi")
+#group_counts(1,10) 
 ignore(None, 0.3)
 ignore(7, None)
 ignore_bad()
@@ -26,9 +26,7 @@ set_source(2,xsphabs.abs_gal  * xsconstant.bat_const *  xszphabs.abs_intr * xsca
 abs_gal.nH = 0.02
 freeze(abs_gal.nH)
 cabs.nH = 0.01
-#freeze(cabs.nH)
 abs_intr.nH = 0.01
-#freeze(abs_intr.nH)
 link(cabs.nH, abs_intr.nH)
 
 
@@ -57,8 +55,10 @@ set_stat('chi2datavar')
 
 fit(1,2)
 
+
 print ("AFTER FIT!")
 show_model()
+print(get_fit_results())
 conf()
 #print("CALC CHI SQUARE")
 #calc_chisqr(1,2)
