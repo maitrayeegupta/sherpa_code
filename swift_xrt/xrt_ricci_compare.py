@@ -1,6 +1,7 @@
 ##load data
 load_pha(1,"interval0pc_binned.pi")
-#group_counts(1,10) 
+#group_counts(1,1) 
+
 ignore(None, 0.3)
 ignore(7, None)
 ignore_bad()
@@ -22,13 +23,17 @@ set_method("simplex")
 set_source(1,xsphabs.abs_gal  * xsconstant.xrt_const *  xszphabs.abs_intr * xscabs.cabs * (xspexrav.pexrav + xsbbody.bb))
 set_source(2,xsphabs.abs_gal  * xsconstant.bat_const *  xszphabs.abs_intr * xscabs.cabs * (xspexrav.pexrav + xsbbody.bb))
 
-#set parameters
-abs_gal.nH = 0.02
-freeze(abs_gal.nH)
-cabs.nH = 0.01
-abs_intr.nH = 0.01
-link(cabs.nH, abs_intr.nH)
+#set_source(1,xsphabs.abs_gal  * xsconstant.xrt_const * (xspexrav.pexrav + xsbbody.bb))
+#set_source(2,xsphabs.abs_gal  * xsconstant.bat_const * (xspexrav.pexrav + xsbbody.bb))
 
+#set parameters
+abs_gal.nH = 0.053
+freeze(abs_gal.nH)
+cabs.nH = 0.0
+abs_intr.nH = 0.0
+
+freeze(cabs.nH)
+freeze(abs_intr.nh)
 
 abs_intr.redshift = 0.0728
 freeze(abs_intr.redshift)
@@ -38,11 +43,11 @@ freeze(pexrav.redshift)
 pexrav.cosIncl = 0.8660254 # cos 30 deg
 freeze(pexrav.cosIncl)
 
-set_par(pexrav.PhoIndex, val = 1.63, min = 0, max = 3, frozen=False)
-set_par(pexrav.foldE, val = 60, min = 0, max = 500, frozen=False)
+set_par(pexrav.PhoIndex, val = 1.63, min = 0, max = 2, frozen=False)
+set_par(pexrav.foldE, val = 60, min = 0, max = 200, frozen=False)
 set_par(pexrav.rel_refl, val = 0.7, min = 0, max = 1, frozen=False)
 set_par(pexrav.norm, val = 0.00021, min = 0, max = 0.1, frozen=False)
-set_par(bb.kT, val = 0.09, min = 0, max = 2, frozen=False)
+set_par(bb.kT, val = 0.09, min = 0, max = 1, frozen=False)
 	
 set_par(xrt_const.factor, val = 1,frozen=True)
 set_par(bat_const.factor, val = 1.1, min = 1, max = 2, frozen=False)
@@ -59,7 +64,7 @@ fit(1,2)
 print ("AFTER FIT!")
 show_model()
 print(get_fit_results())
-conf()
+#conf()
 #print("CALC CHI SQUARE")
 #calc_chisqr(1,2)
 #show_stat()

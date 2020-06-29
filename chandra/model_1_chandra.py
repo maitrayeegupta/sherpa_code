@@ -209,6 +209,7 @@ data2_fit = 0
 
 if(gen_together == 0):
 	plot_fit_delchi(1)
+	#plot_fit(1)
 	#plot("fit",1,"fit",2)
 
 
