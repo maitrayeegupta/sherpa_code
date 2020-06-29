@@ -1,0 +1,12 @@
+Parameter,Ricci_et_al,XRT_data_plus_bat,Chandra_data_plus_bat,Chandra_data_plus_bat_with_pileup,XRT_data_no_bat,Chandra_data_no_bat,Chandra_data_no_bat_with_pileup
+Gamma,1.63,1.61731,1.13786,1.17459,1.66725,1.00562,1.2401
+Cut_off_energy,>= 60,45.8393,16.7196,23.1318,199.997,7.36634,41.7764
+Reflection_parameter,<= 0.7,0.0542044,0.0132578,2.67E-06,0.999996,0.999994,0.000463781
+NH,20,,,,,,
+kT_BB,0.09,0.00517325,0.0139046,0.0127806,0.000249035,0.00580323,0.0115169
+CBAT,1.1,1,2,1.72524,NA,NA,NA
+kT_norm,5.81E-06,0.0586957,2.32214,8.66676,23.693,35.3431,79.9187
+,,,,,,,
+DataPoints,NA,53,109,109,45,101,101
+Degrees of freedom,NA,46,102,101,38,95,94
+reduced statistic,NA,1.26825,0.846148,0.865091,1.41523,0.860707,0.908093
