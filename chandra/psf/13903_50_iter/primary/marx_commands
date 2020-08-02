@@ -1,0 +1,29 @@
+pset ./marx SAOSACFile=HRMA_ra257.24625_dec21.88558_source_flux_chart.dat_dithered_i0000_rays.fits
+pset ./marx OutputDir=marx_output_i0000.dir
+pset ./marx SourceType=SAOSAC
+
+pset ./marx RA_Nom=257.2460273870
+pset ./marx Dec_Nom=21.8825609382
+pset ./marx Roll_Nom=208.2237907471
+pset ./marx SourceRA=257.24625
+pset ./marx SourceDEC=21.88558333333333
+
+pset ./marx DitherModel=FILE
+pset ./marx DitherFile=pcadf457506257N001_asol1.fits
+
+pset ./marx DetectorType=ACIS-S 
+pset ./marx GratingType=NONE
+pset ./marx ExposureTime=0.0
+
+-0.68282252473119 + 0.68426746699586
+
+
+-190.1425803652 + 190.1325231040
+
+pset ./marx DetOffsetX=0.00144494226
+pset ./marx DetOffsetY=0
+pset ./marx DetOffsetZ=-0.0100572612
+
+
+pset ./marx AspectBlur=0.25
+
