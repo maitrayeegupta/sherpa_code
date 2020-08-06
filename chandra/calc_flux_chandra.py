@@ -6,13 +6,13 @@ subtract(1)
 
 
 set_method("simplex")
-#set_source(1,xsphabs.abs_gal  *powlaw1d.p1)
+#set_source(1,xstbabs.abs_gal  *powlaw1d.p1)
 #set_source(1,xsphabs.abs_gal *xszphabs.abs_intr *powlaw1d.p1)
 set_source(1,powlaw1d.p1)
 
 set_pileup_model(1,jdpileup.jdp)
 
-set_par(jdp.alpha, val = 0.5, min = 0, max = 1, frozen=False)
+set_par(jdp.alpha, val = 1.98124e-06, frozen=True)
 set_par(jdp.g0, val = 1, frozen=True)
 set_par(jdp.f, val = 0.95, frozen=True)
 set_par(jdp.n, val = 1, frozen=True)
@@ -21,15 +21,16 @@ set_par(jdp.fracexp, val = 1, frozen=True)
 set_par(jdp.nterms, val = 30, frozen=True)
 
 
-set_par(p1.gamma, val = 1.18874, min = 1.1589404, max = 1.2184707, frozen=False)
-set_par(p1.ampl, val = 0.000166237, min = 0.0001616978 , max = 0.0001707812, frozen=False)
+set_par(p1.gamma, val = 1.27783, min = 1.2462517, max = 1.313404, frozen=False)
+set_par(p1.ampl, val = 0.000184645, min = 0.00017951203 , max = 0.00018981314, frozen=False)
 
-#abs_gal.nH = 0.02
+#set_par(p1.gamma, val = 1.63, min = 0, max = 2, frozen=False)
+#set_par(p1.ampl, val = 0.000166237, min = 0 , max = 0.2, frozen=False)
+
+#abs_gal.nH = 0.053
 #freeze(abs_gal.nH)
 
-#abs_intr.nH = 0.02
-#abs_intr.redshift = 0.0728
-#freeze(abs_intr.redshift)
+
 
 set_stat('chi2datavar')
 #set_stat('cash')
