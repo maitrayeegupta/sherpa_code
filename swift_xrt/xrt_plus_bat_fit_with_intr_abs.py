@@ -57,9 +57,9 @@ ui.plot_data(1)
 ui.set_stat('chi2datavar')
 ui.fit(1,2)
 
-ui.show_model()
-
-print(ui.get_fit_results())
+#ui.show_model()
+#print(ui.get_fit_results())
+conf()
 
 ui.plot_fit_delchi(1)
 
