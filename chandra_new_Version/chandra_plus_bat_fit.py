@@ -73,7 +73,7 @@ ui.fit(1,2)
 
 
 #ui.show_model()
-conf()
+#conf()
 ui.plot_fit_delchi(1)
 
 energy = ui.calc_energy_flux(0.3,7)  

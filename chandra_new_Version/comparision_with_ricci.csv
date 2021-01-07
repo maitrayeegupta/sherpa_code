@@ -1,0 +1,12 @@
+Parameter,Ricci_et_al,powerlaw_XRT_data,powerlaw_Chandra_data
+Gamma,1.63,1.65,1.26
+Cut_off_energy,>= 60,,
+Reflection_parameter,<= 0.7,,
+NH,20,,
+kT_BB,0.09,,
+CBAT,1.1,,
+kT_norm,5.81E-06,,
+,,,
+DataPoints,NA,,
+Degrees of freedom,NA,,
+reduced statistic,NA,,
