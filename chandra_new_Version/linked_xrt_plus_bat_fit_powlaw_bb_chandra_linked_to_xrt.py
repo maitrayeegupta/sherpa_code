@@ -3,7 +3,7 @@ from sherpa.astro import ui
 
 print("Read in Chandra and BAT data")
 
-add_int_abs = 1
+add_int_abs = 0
 
 
 ##load Chandra data
@@ -126,9 +126,10 @@ ui.set_par(chandra_const.factor, val = 1,frozen=True)
 ui.set_par(bat2_const.factor, val = 1.1, min = 1, max = 2, frozen=False)
 ui.set_par(bb1.kT, val = 0.09, min = 0, max = 1, frozen=False)
 ui.set_par(bb1.norm, val = 0.000001, min = 0, max = 1, frozen=False)
+#ui.link(p12.gamma, p1.gamma)
 
-ui.link(p12.gamma, p1.gamma)
 
+p12.gamma = p1.gamma
 
 
 
