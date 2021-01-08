@@ -42,9 +42,6 @@ ui.load_rmf(4,"swiftbat_survey_full.rsp")
 ui.set_method("simplex")
 
 
-#ui.set_source(1,ui.xstbabs.abs_gal  * ui.xsconstant.chandra_const *  ui.xszphabs.abs_intr * ui.xscabs.cabs * (ui.xspexrav.pexrav + ui.xsbbody.bb))
-#ui.set_source(2,ui.xstbabs.abs_gal  * ui.xsconstant.bat_const *  ui.xszphabs.abs_intr * ui.xscabs.cabs * (ui.xspexrav.pexrav + ui.xsbbody.bb))
-
 if(add_int_abs):
 	ui.set_source(3,ui.xstbabs.abs_gal *  ui.xszphabs.abs_intr  * ui.xsconstant.xrt_const * (ui.powlaw1d.p1 ))
 	ui.set_source(4,ui.xstbabs.abs_gal *  ui.xszphabs.abs_intr * ui.xsconstant.bat_const * (ui.powlaw1d.p1 ))
@@ -86,22 +83,6 @@ ui.plot_data(1)
 ui.set_stat('chi2datavar')
 
 
-print("pre fit")
-
-
-ui.fit(3,4)
-
-print("done fit 3,4")
-
-#ui.show_model()
-#conf()
-
-#ui.plot_fit_delchi(3)
-
-energy = ui.calc_energy_flux(0.3,7,3)  
-print ("energy flux =",energy)
-#plt.show()
-
 
 
 if(add_int_abs):
@@ -123,23 +104,20 @@ if(add_int_abs):
 ui.set_par(chandra_const.factor, val = 1,frozen=True)
 ui.set_par(bat2_const.factor, val = 1.1, min = 1, max = 2, frozen=False)
 
-ui.link(p12.gamma, p1.gamma)
+p12.gamma =  p1.gamma
 
 
 
+ui.fit(3,4,1,2)
 
-ui.fit(1,2)
-
-
-print("done fit 1,2")
-
-
-
-
-#ui.show_model()
 
 ui.plot_fit_delchi(1)
 
+#ui.plot_fit_delchi(3)
+
+
+energy = ui.calc_energy_flux(0.3,7,3)  
+print ("energy flux =",energy)
 
 
 

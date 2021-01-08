@@ -3,7 +3,7 @@ from sherpa.astro import ui
 
 print("Read in Chandra and BAT data")
 
-add_int_abs = 0
+add_int_abs = 1
 
 
 ##load Chandra data
@@ -88,20 +88,6 @@ if(add_pileup_model):
 ui.set_stat('chi2datavar')
 
 
-print("pre fit")
-
-
-ui.fit(3,4)
-
-print("done fit 3,4")
-
-#ui.show_model()
-#conf()
-
-#ui.plot_fit_delchi(3)
-
-energy = ui.calc_energy_flux(0.3,7,3)  
-print ("energy flux =",energy)
 #plt.show()
 
 
@@ -133,12 +119,19 @@ p12.gamma = p1.gamma
 
 
 
-ui.fit(1,2)
+
+print("pre fit")
 
 
-print("done fit 1,2")
+ui.fit(3,4,1,2)
 
+#ui.show_model()
+#conf()
 
+#ui.plot_fit_delchi(3)
+
+energy = ui.calc_energy_flux(0.3,7,3)  
+print ("energy flux =",energy)
 
 
 #ui.show_model()
