@@ -3,7 +3,7 @@ from sherpa.astro import ui
 
 print("Read in Chandra and BAT data")
 
-add_int_abs=1
+add_int_abs=0
 
 ##load Chandra data
 ui.load_pha(1,"extract_new/spec_binned.pi")
@@ -64,6 +64,7 @@ if(add_int_abs):
 
 
 #ui.set_par(p1.gamma, val = 1.65, min = 1.65-0.05, max = 1.65+0.05, frozen=False)
+ui.set_par(p1.ampl, val = 0.000001, min = 0, max = 1e-3, frozen=False)
 ui.set_par(p1.gamma, val = 1.63, min = 0, max = 2, frozen=False)
 ui.set_par(chandra_const.factor, val = 1,frozen=True)
 ui.set_par(bat_const.factor, val = 1.1, min = 1, max = 2, frozen=False)
@@ -104,18 +105,21 @@ if(add_int_abs):
 
 
 ui.set_par(xrt_const.factor, val = 1,frozen=True)
+ui.set_par(p12.ampl, val = 0.000001, min = 0, max = 1e-3, frozen=False)
 ui.set_par(bat2_const.factor, val = 1.1, min = 1, max = 2, frozen=False)
 
 p12.gamma =  p1.gamma
 
 
 
-ui.fit(1,2,3,4)
+ui.fit(1,3)
+#ui.fit(1,2,3,4)
 
+#conf()
 
-ui.plot_fit_delchi(1)
+#ui.plot_fit_delchi(1)
 
-#ui.plot_fit_delchi(3)
+ui.plot_fit_delchi(3)
 
 print("done fit")
 
